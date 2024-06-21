@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Document.Store", "Document.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Document.DataAccess", "Document.DataAccess\Document.DataAccess.csproj", "{1EFC0BB9-369F-446E-A9CA-9C102EEE9697}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Document.Tests", "Document.Tests\Document.Tests.csproj", "{0E180CA1-5535-4B4D-9F70-5BB5BE519FA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exterrnal", "Exterrnal", "{61460AF7-94A0-4A91-9F6E-7B7A7D19D88E}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +28,10 @@ Global
 		{1EFC0BB9-369F-446E-A9CA-9C102EEE9697}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EFC0BB9-369F-446E-A9CA-9C102EEE9697}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EFC0BB9-369F-446E-A9CA-9C102EEE9697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E180CA1-5535-4B4D-9F70-5BB5BE519FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E180CA1-5535-4B4D-9F70-5BB5BE519FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E180CA1-5535-4B4D-9F70-5BB5BE519FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E180CA1-5535-4B4D-9F70-5BB5BE519FA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
