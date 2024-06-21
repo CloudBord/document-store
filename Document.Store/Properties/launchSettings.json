@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Document.Store": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7230"
+    }
+  }
+}
