@@ -10,5 +10,7 @@ namespace Document.DataAccess.Context
     public interface ISnapshotContext
     {
         Task<BoardSnapshot> GetSnapshot(uint boardId);
+        Task DeleteSnapshot(uint boardId);
+        Task CreateSnapshot(BoardSnapshot snapshot);
     }
 }

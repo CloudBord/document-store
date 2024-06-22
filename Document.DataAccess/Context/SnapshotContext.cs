@@ -9,9 +9,27 @@ namespace Document.DataAccess.Context
         private readonly IConfiguration _configuration;
         private readonly CosmosClient _client;
 
-        public SnapshotContext(IConfiguration configuration) {
+        public SnapshotContext(IConfiguration configuration, CosmosClient client) {
             _configuration = configuration;
-            _client = new CosmosClient(_configuration.GetConnectionString("CosmosDB"));
+            _client = client;
+        }
+
+        public async Task CreateSnapshot(BoardSnapshot snapshot)
+        {
+            Database database = _client.GetDatabase(_configuration["CosmosDB:DatabaseName"]);
+            Container container = database.GetContainer(_configuration["CosmosDB:ContainerName"]);
+            await container.CreateItemAsync<BoardSnapshot>(snapshot, new PartitionKey(snapshot.boardId));
+        }
+
+        public async Task DeleteSnapshot(uint boardId)
+        {
+            Database database = _client.GetDatabase(_configuration["CosmosDB:DatabaseName"]);
+            Container container = database.GetContainer(_configuration["CosmosDB:ContainerName"]);
+            try
+            {
+                await container.DeleteItemAsync<BoardSnapshot>(boardId.ToString(), new PartitionKey(boardId));
+            }
+            catch { }
         }
 
         public async Task<BoardSnapshot> GetSnapshot(uint boardId)

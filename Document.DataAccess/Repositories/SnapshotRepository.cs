@@ -14,6 +14,7 @@ namespace Document.DataAccess.Repositories
 
         public async Task<BoardSnapshot> CreateSnapshot(BoardSnapshot snapshot)
         {
+            await _snapshotContext.CreateSnapshot(snapshot);
             //await _snapshotContext.Snapshots.AddAsync(snapshot);
             //await _snapshotContext.SaveChangesAsync();
             return snapshot;
@@ -21,6 +22,7 @@ namespace Document.DataAccess.Repositories
 
         public async Task DeleteSnapshotAsync(uint boardId)
         {
+            await _snapshotContext.DeleteSnapshot(boardId);
             //var content = await GetSnapshotAsync(boardId);
             //if (content == null) throw new Exception();
             ////await _snapshots.DeleteOneAsync(x => x.BoardId == boardId);
@@ -33,11 +35,12 @@ namespace Document.DataAccess.Repositories
             return await _snapshotContext.GetSnapshot(boardId);
         }
 
-        public async Task UpdateSnapshotAsync( BoardSnapshot boardSnapshot)
+        public Task UpdateSnapshotAsync( BoardSnapshot boardSnapshot)
         {
             //await _snapshots.ReplaceOneAsync(x => x.Id == boardSnapshot.Id, boardSnapshot);
             //await _snapshotContext.Snapshots.AddAsync(boardSnapshot);
             //await _snapshotContext.SaveChangesAsync();
+            throw new NotImplementedException();
         }
     }
 }
