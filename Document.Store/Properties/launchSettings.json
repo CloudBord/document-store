@@ -3,6 +3,13 @@
     "Document.Store": {
       "commandName": "Project",
       "commandLineArgs": "--port 7230"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "DockerfileRunArguments": "--init",
+      "httpPort": 31988,
+      "useSSL": false
     }
   }
 }

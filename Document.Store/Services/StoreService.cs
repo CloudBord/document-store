@@ -9,36 +9,38 @@ namespace Document.Store.Services
 
         public async Task CreateSnapshot(BoardSnapshot snapshot)
         {
+            ValidateBoardId(snapshot.boardId);
             await _snapshotRepository.CreateSnapshot(snapshot);
         }
 
-        public Task DeleteSnapshotAsync(uint boardId)
+        public async Task DeleteSnapshotAsync(uint boardId)
         {
-            throw new NotImplementedException();
+            ValidateBoardId(boardId);
+            await _snapshotRepository.DeleteSnapshotAsync(boardId);
         }
 
         public async Task<BoardSnapshot?> GetSnapshotAsync(uint boardId)
         {
+            ValidateBoardId(boardId);
             return await _snapshotRepository.GetSnapshotAsync(boardId);
         }
 
         public async Task UpdateSnapshotAsync(uint boardId, dynamic document)
         {
+            ValidateBoardId(boardId);
             BoardSnapshot? boardSnapshot = await GetSnapshotAsync(boardId);
-
             if (boardSnapshot == null)
             {
-                await CreateSnapshot(new BoardSnapshot
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    BoardId = boardId,
-                    Document = document
-                });
-                //throw new NullReferenceException("Board does not exist!");
+                throw new NullReferenceException("Board does not exist!");
             }
-            else
+            await _snapshotRepository.UpdateSnapshotAsync(boardSnapshot);
+        }
+
+        private void ValidateBoardId(uint boardId)
+        {
+            if (boardId < 1)
             {
-                await _snapshotRepository.UpdateSnapshotAsync(boardSnapshot);
+                throw new ArgumentOutOfRangeException("boardId", boardId, "BoardId must not be lower than 1");
             }
         }
     }
