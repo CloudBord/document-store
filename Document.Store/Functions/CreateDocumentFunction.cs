@@ -22,13 +22,7 @@ namespace Document.Store.Functions
         [Function("CreateDocumentFunction")]
         public async Task<IActionResult> Run([RabbitMQTrigger("board-create", ConnectionStringSetting = "ConnectionStrings:RabbitMQ")] string myQueueItem)
         {
-            ObjectResult result = JsonConvert.DeserializeObject<ObjectResult>(myQueueItem.Replace("\r", string.Empty).Replace("\n", string.Empty))!;
-            if (result.StatusCode >= 300 || result == null)
-            {
-                return new BadRequestResult();
-            }
-
-            CreateDocumentRequest request = JsonConvert.DeserializeObject<CreateDocumentRequest>(result!.Value!.ToString()!)!;
+            CreateDocumentRequest request = JsonConvert.DeserializeObject<CreateDocumentRequest>(myQueueItem.Replace("\r", string.Empty).Replace("\n", string.Empty))!;
             try
             {
                 BoardSnapshot snapshot = new BoardSnapshot
@@ -41,7 +35,7 @@ namespace Document.Store.Functions
             }
             catch (Exception ex)
             {
-                _logger.LogWarning("Could not register new board: " + ex.Message, ex);
+                _logger.LogWarning("Could not register new board", ex);
                 return new BadRequestResult();
             }
 

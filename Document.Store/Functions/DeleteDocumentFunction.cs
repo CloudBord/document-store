@@ -2,7 +2,6 @@ using Document.Store.Requests;
 using Document.Store.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -23,12 +22,12 @@ namespace Document.Store.Functions
         public async Task Run([RabbitMQTrigger("board-delete", ConnectionStringSetting = "ConnectionStrings:RabbitMQ")] string myQueueItem)
         {
             ObjectResult result = JsonConvert.DeserializeObject<ObjectResult>(myQueueItem.Replace("\r", string.Empty).Replace("\n", string.Empty))!;
-            if(result.StatusCode >= 300 || result == null)
+            if (result.StatusCode >= 300)
             {
                 return;
             }
             DeleteDocumentRequest request = JsonConvert.DeserializeObject<DeleteDocumentRequest>(result!.Value!.ToString()!)!;
-            if(!request.Result || request.BoardId <= 0)
+            if(!request.Result)
             {
                 return;
             }

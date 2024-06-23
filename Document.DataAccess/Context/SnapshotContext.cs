@@ -29,7 +29,7 @@ namespace Document.DataAccess.Context
             {
                 await container.DeleteItemAsync<BoardSnapshot>(boardId.ToString(), new PartitionKey(boardId));
             }
-            catch { }
+            catch { } // The presence or lack thereof of a document with the given ID should not matter, treat the request as any other
         }
 
         public async Task<BoardSnapshot> GetSnapshot(uint boardId)
