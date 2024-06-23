@@ -27,7 +27,7 @@ namespace Document.Store.Functions
 
             try
             {
-                await _storeService.UpdateSnapshotAsync(request.BoardId, request.Document);
+                await _storeService.UpdateSnapshotAsync(request!.BoardId, request.Document);
             }
             catch (Exception ex)
             {

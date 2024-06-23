@@ -12,9 +12,9 @@ namespace Document.Store.Services
             await _snapshotRepository.CreateSnapshot(snapshot);
         }
 
-        public Task DeleteSnapshotAsync(uint boardId)
+        public async Task DeleteSnapshotAsync(uint boardId)
         {
-            throw new NotImplementedException();
+            await _snapshotRepository.DeleteSnapshotAsync(boardId);
         }
 
         public async Task<BoardSnapshot?> GetSnapshotAsync(uint boardId)
@@ -28,18 +28,9 @@ namespace Document.Store.Services
 
             if (boardSnapshot == null)
             {
-                await CreateSnapshot(new BoardSnapshot
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    BoardId = boardId,
-                    Document = document
-                });
-                //throw new NullReferenceException("Board does not exist!");
+                throw new NullReferenceException("Board does not exist!");
             }
-            else
-            {
-                await _snapshotRepository.UpdateSnapshotAsync(boardSnapshot);
-            }
+            await _snapshotRepository.UpdateSnapshotAsync(boardSnapshot);
         }
     }
 }
